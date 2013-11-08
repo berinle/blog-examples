@@ -41,3 +41,11 @@
 
 # other
 *.iws
+*.iml
+*.ipr
+.idea
+
+build
+target
+.gradle
+classes
