@@ -5,11 +5,8 @@ import com.yammer.dropwizard.hibernate.AbstractDAO
 import org.hibernate.SessionFactory
 import org.hibernate.criterion.Restrictions
 
-import javax.inject.Inject
-
 class NoteDAO extends AbstractDAO<NoteEntity> {
 
-    @Inject
     NoteDAO(SessionFactory sessionFactory) {
         super(sessionFactory)
     }

@@ -1,17 +1,12 @@
 package com.objectpartners.blog.dropwizard.guice.resources
 
-import com.objectpartners.blog.dropwizard.guice.dao.NoteDAO
 import com.objectpartners.blog.dropwizard.guice.entities.NoteEntity
+import com.objectpartners.blog.dropwizard.guice.service.NoteService
 import com.yammer.dropwizard.hibernate.UnitOfWork
 
 import javax.inject.Inject
 import javax.validation.Valid
-import javax.ws.rs.Consumes
-import javax.ws.rs.GET
-import javax.ws.rs.POST
-import javax.ws.rs.Path
-import javax.ws.rs.PathParam
-import javax.ws.rs.Produces
+import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
 
 @Path('/notes')
@@ -19,25 +14,30 @@ import javax.ws.rs.core.MediaType
 @Consumes(MediaType.APPLICATION_JSON)
 class NoteResource {
 
+
+    NoteService noteService
+
     @Inject
-    NoteDAO noteDAO
+    public NoteResource(NoteService noteService) {
+        this.noteService = noteService
+    }
 
     @GET
     @UnitOfWork
     List<NoteEntity> getNotes() {
-        noteDAO.list()
+        noteService.findAll()
     }
 
     @POST
     @UnitOfWork
     NoteEntity saveNote(@Valid String text) {
-        noteDAO.save(text)
+        noteService.save(text)
     }
 
     @GET
     @Path('{id}')
     @UnitOfWork
     NoteEntity getNote(@PathParam('id') Long id) {
-        noteDAO.get(id)
+        noteService.find(id)
     }
 }

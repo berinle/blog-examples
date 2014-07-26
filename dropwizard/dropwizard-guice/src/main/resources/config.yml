@@ -21,7 +21,27 @@ database:
   password: sa
 
   # the JDBC URL
-  url: jdbc:h2:target/echo
+  url: jdbc:h2:target/echo1
+
+  properties:
+      hibernate.show_sql: false
+      hibernate.generate_statistics: false
+      hibernate.use_sql_comments: false
+      hibernate.hbm2ddl.auto: create
+
+database2:
+
+  # the name of your JDBC driver
+  driverClass: org.h2.Driver
+
+  # the username
+  user: sa
+
+  # the password
+  password: sa
+
+  # the JDBC URL
+  url: jdbc:h2:target/echo2
 
   properties:
       hibernate.show_sql: false

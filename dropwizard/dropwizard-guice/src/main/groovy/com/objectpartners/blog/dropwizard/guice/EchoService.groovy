@@ -18,6 +18,14 @@ class EchoService extends Service<EchoConfiguration> {
         }
     }
 
+    private final HibernateBundle<EchoConfiguration> hibernate2 = new HibernateBundle<EchoConfiguration>(NoteEntity, [] as Class[]) {
+
+        @Override
+        DatabaseConfiguration getDatabaseConfiguration(EchoConfiguration configuration) {
+            return configuration.database2
+        }
+    }
+
     public static void main(String[] args) {
         new EchoService().run(args)
     }
@@ -26,9 +34,10 @@ class EchoService extends Service<EchoConfiguration> {
     void initialize(Bootstrap<EchoConfiguration> bootstrap) {
         bootstrap.name = 'echo'
         bootstrap.addBundle(hibernate)
+        bootstrap.addBundle(hibernate2)
         bootstrap.addBundle(
                 GuiceBundle.<EchoConfiguration>newBuilder()
-                        .addModule(new EchoModule(hibernate: hibernate))
+                        .addModule(new EchoModule(hibernate: hibernate, hibernate2: hibernate2))
                         .setConfigClass(EchoConfiguration)
                         .enableAutoConfig(this.class.package.name)
                         .build()

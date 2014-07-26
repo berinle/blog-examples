@@ -13,4 +13,9 @@ class EchoConfiguration extends Configuration {
     @NotNull
     @JsonProperty
     DatabaseConfiguration database = new DatabaseConfiguration()
+
+    @Valid
+    @NotNull
+    @JsonProperty
+    DatabaseConfiguration database2 = new DatabaseConfiguration()
 }
